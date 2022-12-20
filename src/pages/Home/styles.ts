@@ -25,15 +25,12 @@ export const BaseCountdownButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
+  color: ${(props) => props.theme['gray-100']};
 
   gap: 0.5rem;
   font-weight: bold;
 
   cursor: pointer;
-
-  color: ${({ theme }) => theme['gray-100']};
-
-  transition: background 0.2s;
 
   &:disabled {
     opacity: 0.7;
@@ -42,17 +39,18 @@ export const BaseCountdownButton = styled.button`
 `
 
 export const StartCountdownButton = styled(BaseCountdownButton)`
-  background: ${({ theme }) => theme['green-500']};
+  background: ${(props) => props.theme['green-500']};
+  color: ${(props) => props.theme['gray-100']};
 
   &:not(:disabled):hover {
-    background: ${({ theme }) => theme['green-700']};
+    background: ${(props) => props.theme['green-700']};
   }
 `
 
 export const StopCountdownButton = styled(BaseCountdownButton)`
-  background: ${({ theme }) => theme['red-500']};
+  background: ${(props) => props.theme['red-500']};
 
   &:not(:disabled):hover {
-    background: ${({ theme }) => theme['red-700']};
+    background: ${(props) => props.theme['red-700']};
   }
 `
