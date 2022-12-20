@@ -5,16 +5,13 @@ import * as zod from 'zod'
 import { v4 as uuid } from 'uuid'
 import { differenceInSeconds } from 'date-fns'
 import {
-  CountdownContainer,
-  FormContainer,
   HomeContainer,
-  MinutesAmountInput,
-  Separator,
   StartCountdownButton,
   StopCountdownButton,
-  TaskInput,
 } from './styles'
 import { useEffect, useState } from 'react'
+import { NewCycleForm } from './components/NewCycleForm'
+import { Countdown } from './components/Countdown'
 
 const newCycleFormValidationSchema = zod.object({
   task: zod.string().min(1, 'De um nome para o seu projeto'),
@@ -122,48 +119,12 @@ export function Home() {
   const task = watch('task')
   const isSubmitDisabled = !task
 
-  console.log(cycles)
-
   return (
     <HomeContainer>
       <form onSubmit={handleSubmit(handleCreateNewCycle)}>
-        <FormContainer>
-          <label htmlFor="task">Vou trabalhar em</label>
-          <TaskInput
-            type="text"
-            id="task"
-            placeholder="De um nome para o seu projeto"
-            list="task-sugestions"
-            disabled={!!activeCycle}
-            {...register('task')}
-          />
-          <datalist id="task-sugestions">
-            <option value="Projeto 1" />
-            <option value="Projeto 2" />
-            <option value="Projeto 3" />
-            <option value="Projeto 4" />
-          </datalist>
-          <label htmlFor="minutesAmount">durante</label>
-          <MinutesAmountInput
-            type="number"
-            id="minutesAmount"
-            placeholder="00"
-            step={1}
-            min={1}
-            max={60}
-            disabled={!!activeCycle}
-            {...register('minutesAmount', { valueAsNumber: true })}
-          />
-          <span>minutos.</span>
-        </FormContainer>
+        <NewCycleForm />
 
-        <CountdownContainer>
-          <span>{minutes[0]}</span>
-          <span>{minutes[1]}</span>
-          <Separator>:</Separator>
-          <span>{seconds[0]}</span>
-          <span>{seconds[1]}</span>
-        </CountdownContainer>
+        <Countdown />
 
         {activeCycle ? (
           <StopCountdownButton type="button" onClick={handleStopCycle}>
